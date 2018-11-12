@@ -16,8 +16,16 @@ void QuestionOne() {
     double millis_sift, millis_surf;
 
 
-    Mat img1 = imread("Assig2_Supp/Q1-Invariant-Testing/box.png", IMREAD_GRAYSCALE);
-    Mat img2 = imread("Assig2_Supp/Q1-Invariant-Testing/box_in_scene.png", IMREAD_GRAYSCALE);
+//    Mat img1 = imread("Assig2_Supp/Q1-Invariant-Testing/box.png", IMREAD_GRAYSCALE);
+//    Mat img2 = imread("Assig2_Supp/Q1-Invariant-Testing/box_in_scene.png", IMREAD_GRAYSCALE);
+//	Mat img1 = imread("Assig2_Supp/Q1-Invariant-Testing/DSC_0047.JPG", IMREAD_GRAYSCALE);
+//	Mat img2 = imread("Assig2_Supp/Q1-Invariant-Testing/DSC_0053.JPG", IMREAD_GRAYSCALE);
+//	Mat img3 = imread("Assig2_Supp/Q1-Invariant-Testing/DSC_0057.JPG", IMREAD_GRAYSCALE);
+//	Mat img1 = imread("Assig2_Supp/Q1-Invariant-Testing/iphone1.jpg", IMREAD_GRAYSCALE);
+//	Mat img2 = imread("Assig2_Supp/Q1-Invariant-Testing/iphone2.jpg", IMREAD_GRAYSCALE);
+//	Mat img3 = imread("Assig2_Supp/Q1-Invariant-Testing/iphone_object.jpg", IMREAD_GRAYSCALE);
+	Mat img1 = imread("Assig2_Supp/Q1-Invariant-Testing/label.jpg", IMREAD_GRAYSCALE);
+	Mat img2 = imread("Assig2_Supp/Q1-Invariant-Testing/label_object.jpg", IMREAD_GRAYSCALE);
 
     if (img1.empty()) {
         cerr << "Error: Image 1 empty" << endl;
@@ -30,8 +38,8 @@ void QuestionOne() {
 
     vector<KeyPoint> keypoints1, keypoints2;
     Mat descriptors1, descriptors2;
-    vector<DMatch> matches1, matches2;
-    Ptr<DescriptorMatcher> matcher = BFMatcher::create("BruteForce");
+    vector<DMatch> matches;
+	BFMatcher matcher(NORM_L2);
 
 
     // SIFT detection
@@ -51,8 +59,7 @@ void QuestionOne() {
     sift2->compute(img2, keypoints2, descriptors2);
 
     // find matches
-    matcher->match(descriptors1, matches1);
-    matcher->match(descriptors2, matches2);
+    matcher.match(descriptors1, descriptors2, matches);
 
     // draw keypoints
     Mat img1_sift, img2_sift;
@@ -60,9 +67,8 @@ void QuestionOne() {
     drawKeypoints(img2, keypoints2, img2_sift);
 
     // draw matches
-    Mat sift_matches;
-    drawMatches(img1, keypoints1, img2, keypoints2)
-    
+    Mat img_matches_sift;
+    drawMatches(img1, keypoints1, img2, keypoints2, matches, img_matches_sift);
 
     // stop timer, record time
     checkTime = clock();
@@ -75,7 +81,7 @@ void QuestionOne() {
     startTime = clock();
 
     // create pointers
-    int hessianThresh = 300;
+    int hessianThresh = 400;
     Ptr<SURF> surf1 = SURF::create(hessianThresh);
     Ptr<SURF> surf2 = SURF::create(hessianThresh);
 
@@ -83,10 +89,21 @@ void QuestionOne() {
     surf1->detect(img1, keypoints1);
     surf2->detect(img2, keypoints2);
 
+    // compute matches
+    surf1->compute(img1, keypoints1, descriptors1);
+    surf2->compute(img2, keypoints2, descriptors2);
+
+    // find matches
+    matcher.match(descriptors1, descriptors2, matches);
+
     // draw keypoints
     Mat img1_surf, img2_surf;
     drawKeypoints(img1, keypoints1, img1_surf);
     drawKeypoints(img2, keypoints2, img2_surf);
+
+    // draw matches
+    Mat img_matches_surf;
+    drawMatches(img1, keypoints1, img2, keypoints2, matches, img_matches_surf);
 
     // stop timer, record time
     checkTime = clock();
@@ -99,8 +116,10 @@ void QuestionOne() {
     cout << "SURF took approx. " << millis_surf << " milliseconds." << endl;
     imshow("Image 1 SIFT", img1_sift);
     imshow("Image 2 SIFT", img2_sift);
+    imshow("Matches SIFT", img_matches_sift);
     imshow("Image 1 SURF", img1_surf);
     imshow("Image 2 SURF", img2_surf);
+    imshow("Matches SURF", img_matches_surf);
 
     waitKey(0);
 }

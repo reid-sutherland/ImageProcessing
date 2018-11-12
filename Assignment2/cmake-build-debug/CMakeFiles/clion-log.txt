@@ -1,4 +1,4 @@
-/home/reid/Applications/clion-2018.2.5/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/reid/ImageProcessing/Assignment2
+/private/var/folders/zr/ftj_dq_50t1795b82w5hgvhm0000gn/T/AppTranslocation/58EF6B35-40B1-416A-83CB-1C68F44168D6/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/Reid/ImageProcessing/Assignment2
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/reid/ImageProcessing/Assignment2/cmake-build-debug
+-- Build files have been written to: /Users/Reid/ImageProcessing/Assignment2/cmake-build-debug

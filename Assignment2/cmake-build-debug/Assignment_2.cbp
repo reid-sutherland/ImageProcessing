@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6"/>
 	<Project>
-		<Option title="Assignment2"/>
+		<Option title="Assignment_2"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
 		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\local\;CMake Files\..\..\..\..\usr\local\share\;CMake Files\..\..\..\..\usr\local\share\OpenCV\;"/>
@@ -37,8 +37,8 @@
 					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/Reid/ImageProcessing/Assignment2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="Assignment2">
-				<Option output="/Users/Reid/ImageProcessing/Assignment2/cmake-build-debug/Assignment2" prefix_auto="0" extension_auto="0"/>
+			<Target title="Assignment_2">
+				<Option output="/Users/Reid/ImageProcessing/Assignment2/cmake-build-debug/Assignment_2" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/Users/Reid/ImageProcessing/Assignment2/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -53,14 +53,14 @@
 					<Add directory="/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/Users/Reid/ImageProcessing/Assignment2/cmake-build-debug/Makefile&quot;  VERBOSE=1 Assignment2"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/Reid/ImageProcessing/Assignment2/cmake-build-debug/Makefile&quot;  VERBOSE=1 Assignment_2"/>
 					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/Reid/ImageProcessing/Assignment2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j8 -f &quot;/Users/Reid/ImageProcessing/Assignment2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/Reid/ImageProcessing/Assignment2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="Assignment2/fast">
-				<Option output="/Users/Reid/ImageProcessing/Assignment2/cmake-build-debug/Assignment2" prefix_auto="0" extension_auto="0"/>
+			<Target title="Assignment_2/fast">
+				<Option output="/Users/Reid/ImageProcessing/Assignment2/cmake-build-debug/Assignment_2" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/Users/Reid/ImageProcessing/Assignment2/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -75,7 +75,7 @@
 					<Add directory="/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/Users/Reid/ImageProcessing/Assignment2/cmake-build-debug/Makefile&quot;  VERBOSE=1 Assignment2/fast"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/Reid/ImageProcessing/Assignment2/cmake-build-debug/Makefile&quot;  VERBOSE=1 Assignment_2/fast"/>
 					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/Reid/ImageProcessing/Assignment2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j8 -f &quot;/Users/Reid/ImageProcessing/Assignment2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/Reid/ImageProcessing/Assignment2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
@@ -83,7 +83,7 @@
 			</Target>
 		</Build>
 		<Unit filename="/Users/Reid/ImageProcessing/Assignment2/main.cpp">
-			<Option target="Assignment2"/>
+			<Option target="Assignment_2"/>
 		</Unit>
 		<Unit filename="/Users/Reid/ImageProcessing/Assignment2/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
