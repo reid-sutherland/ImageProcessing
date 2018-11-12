@@ -7,10 +7,10 @@ LIBPNG=-lpng
 all: $(SOURCES) segment
 
 segment: $(OBJECTS)
-$(CC) $(OBJECTS) $(LIBPNG) -o $@
+	$(CC) $(OBJECTS) $(LIBPNG) -o $@
 
 .cpp:
-$(CC) $(OBJECTS) $< -o $@
+	$(CC) $(OBJECTS) $< -o $@
 
 clean:
-rm -rf *.o segment out-*
+	rm -rf *.o segment out-*
