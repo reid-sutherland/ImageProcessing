@@ -1,0 +1,147 @@
+******** box ********
+_____SIFT_____
+Quantity
+ Object features:  604
+ _in_space features:  969
+ Matches:  604
+ Good matches:  30
+Performance
+ Computation time:  282.312ms
+ Matching accuracy (total distance):  2982.63
+ Matching accuracy (average distance):  99.4211 per match
+
+_____SURF_____
+Quantity
+ Object features:  730
+ _in_space features:  959
+ Matches:  730
+ Good matches:  36
+Performance
+ Computation time:  453.709ms
+ Matching accuracy (total distance):  3759.38
+ Matching accuracy (average distance):  104.427 per match
+
+
+
+******** DSC1 ********
+_____SIFT_____
+Quantity
+ Object features:  28531
+ _in_space features:  20723
+ Matches:  28531
+ Good matches:  1426
+Performance
+ Computation time:  92502.9ms
+ Matching accuracy (total distance):  125058
+ Matching accuracy (average distance):  87.6984 per match
+
+_____SURF_____
+Quantity
+ Object features:  15069
+ _in_space features:  13202
+ Matches:  15069
+ Good matches:  753
+Performance
+ Computation time:  25820.2ms
+ Matching accuracy (total distance):  1287210
+ Matching accuracy (average distance):  1709.44 per match
+
+
+
+******** DSC2 ********
+_____SIFT_____
+Quantity
+ Object features:  28531
+ _in_space features:  20723
+ Matches:  28531
+ Good matches:  1426
+Performance
+ Computation time:  92356.5ms
+ Matching accuracy (total distance):  125058
+ Matching accuracy (average distance):  87.6984 per match
+
+_____SURF_____
+Quantity
+ Object features:  15069
+ _in_space features:  13202
+ Matches:  15069
+ Good matches:  753
+Performance
+ Computation time:  25903.3ms
+ Matching accuracy (total distance):  1287210
+ Matching accuracy (average distance):  1709.44 per match
+
+
+
+******** iphone1 ********
+_____SIFT_____
+Quantity
+ Object features:  293
+ _in_space features:  435
+ Matches:  293
+ Good matches:  20
+Performance
+ Computation time:  169.046ms
+ Matching accuracy (total distance):  2218.82
+ Matching accuracy (average distance):  110.941 per match
+
+_____SURF_____
+Quantity
+ Object features:  395
+ _in_space features:  340
+ Matches:  395
+ Good matches:  28
+Performance
+ Computation time:  191.414ms
+ Matching accuracy (total distance):  1648.95
+ Matching accuracy (average distance):  58.8911 per match
+
+
+
+******** iphone2 ********
+_____SIFT_____
+Quantity
+ Object features:  293
+ _in_space features:  544
+ Matches:  293
+ Good matches:  20
+Performance
+ Computation time:  165.436ms
+ Matching accuracy (total distance):  2209.13
+ Matching accuracy (average distance):  110.457 per match
+
+_____SURF_____
+Quantity
+ Object features:  395
+ _in_space features:  521
+ Matches:  395
+ Good matches:  28
+Performance
+ Computation time:  236.929ms
+ Matching accuracy (total distance):  1894.46
+ Matching accuracy (average distance):  67.6594 per match
+
+
+
+******** label ********
+_____SIFT_____
+Quantity
+ Object features:  682
+ _in_space features:  586
+ Matches:  682
+ Good matches:  113
+Performance
+ Computation time:  204.753ms
+ Matching accuracy (total distance):  13917
+ Matching accuracy (average distance):  123.159 per match
+
+_____SURF_____
+Quantity
+ Object features:  318
+ _in_space features:  361
+ Matches:  318
+ Good matches:  53
+Performance
+ Computation time:  138.773ms
+ Matching accuracy (total distance):  2332.3
+ Matching accuracy (average distance):  44.0056 per match

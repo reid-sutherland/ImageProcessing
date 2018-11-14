@@ -1,0 +1,219 @@
+%  This Matlab code demonstrates an edge-based active contour model as an application of 
+%  the Distance Regularized Level Set Evolution (DRLSE) formulation in the following paper:
+%
+%  C. Li, C. Xu, C. Gui, M. D. Fox, "Distance Regularized Level Set Evolution and Its Application to Image Segmentation", 
+%     IEEE Trans. Image Processing, vol. 19 (12), pp. 3243-3254, 2010.
+%
+% Author: Chunming Li, all rights reserved
+% E-mail: lchunming@gmail.com   
+%         li_chunming@hotmail.com 
+% URL:  http://www.imagecomputing.org/~cmli/
+clear all;
+close all;
+Img = imread('Assig2_Supp/Q3-Images/jet.jpg'); % real miscroscope image of cells
+%colorImg=double(Img(:,:,3));
+Img=double(Img(:,:,1));
+%% parameter setting
+
+timestep=20;  % time step
+mu=0.2/timestep;  % coefficient of the distance regularization term R(phi)
+
+% 1 - train
+% 2 - cyclist
+% 3 - drunk
+% 4 - jet
+% 5 - boats
+% 6 - computer
+% 7 - sheep
+% 8 - hannukah
+whichImg = 4;
+if whichImg == 1
+    width=500;
+    height=375;
+    iter_inner=20;
+    iter_outer=30;
+    lambda=.5; % coefficient of the weighted length term L(phi)
+    alfa=.2;  % coefficient of the weighted area term A(phi)
+    epsilon=1; % papramater that specifies the width of the DiracDelta function
+    sigma=1.5;
+elseif whichImg == 2
+    width=334;
+    height=500;
+    iter_inner=20;
+    iter_outer=30;
+    lambda=5;
+    alfa=2;
+    epsilon=.5;
+    sigma=1.5;
+elseif whichImg == 3
+    width=500;
+    height=375;
+    iter_inner=20;
+    iter_outer=40;
+    lambda=10; % coefficient of the weighted length term L(phi)
+    alfa=4;  % coefficient of the weighted area term A(phi)
+    epsilon=1; % papramater that specifies the width of the DiracDelta function
+    sigma=.5;
+elseif whichImg == 4
+    width=500;
+    height=333;
+    iter_inner=10;
+    iter_outer=40;
+    lambda=7; % coefficient of the weighted length term L(phi)
+    alfa=.5;  % coefficient of the weighted area term A(phi)
+    %alfa=2;
+    epsilon=1; % papramater that specifies the width of the DiracDelta function
+    sigma=1.5;
+elseif whichImg == 5
+    width=500;
+    height=375;
+elseif whichImg == 6
+    width=500;
+    height=375;
+elseif whichImg == 7
+    width=500;
+    height=332;
+elseif whichImg == 8
+    width=500;
+    height=375;
+end
+
+%% set potentialFunction
+potential=2;  
+if potential ==1
+    potentialFunction = 'single-well';A  % use single well potential p1(s)=0.5*(s-1)^2, which is good for region-based model 
+elseif potential == 2
+    potentialFunction = 'double-well';  % use double-well potential in Eq. (16), which is good for both edge and region based models
+else
+    potentialFunction = 'double-well';  % default choice of potential function
+end
+
+%% initialize functions
+G=fspecial('gaussian',15,sigma);
+Img_smooth=conv2(Img,G,'same');  % smooth image by Gaussiin convolution
+[Ix,Iy]=gradient(Img_smooth);
+f=Ix.^2+Iy.^2;
+g=1./(1+f);  % edge indicator function.
+
+% initialize LSF as binary step function
+c0=2;
+initialLSF=c0*ones(size(Img));
+
+%% displays
+%figure(1);
+%mesh(-phi);   % for a better view, the LSF is displayed upside down
+%hold on;  contour(phi, [0,0], 'r','LineWidth',2);
+%title('Initial level set function');
+%view([-80 35]);
+
+%figure(2);
+%imagesc(Img,[0, 255]); axis off; axis equal; colormap(gray); hold on;  contour(phi, [0,0], 'r');
+%title('Initial zero lphievel contour');
+%pause(0.5);
+
+%% start regions loop
+numregions = 2;
+randomregions = 0;
+finalPhi = zeros(height,width);
+% do all of this for each region
+for i = 2:numregions
+    fprintf('i= %d\n', i);
+    % hardcode regions for 2 and 3 regions
+    if i == 2 && numregions == 2
+        %starty=010;  endy=350;  startx=010;  endx=400; %train
+        %starty=010;  endy=350;  startx=75;  endx=450; %drunk
+        %starty = 5; endy = 495; startx =64; endx =290; %cyclist
+        starty = 100; endy = 200; startx = 170; endx = 280; %jet
+    elseif i == 2
+        % initial region
+        %starty=100;  endy=250;  startx=100;  endx=300;  % train
+        %starty = 5; endy = 495; startx =2; endx =100; %cyclist
+        %starty=010;  endy=350;  startx=75;  endx=450;  % drunk
+        starty = 125; endy = 175; startx = 170; endx = 280; %jet
+        %initialLSF(010:040, 200:250)=-c0;
+        %initialLSF(150:250, 150:250)=-c0;
+        %initialLSF(100:200, 170:280)=-c0;  % jet
+    elseif i == 3
+        % second region
+        %starty=010;  endy=350;  startx=010;  endx=400;  % train
+        %starty = 5; endy = 495; startx =120; endx =290; %cyclist
+        %starty = 100; endy = 200; startx =2; endx =100; %drunk
+        starty = 100; endy = 200; startx = 170; endx = 280; %jet
+        %initialLSF(010:040, 200:250)=-c0;
+        %initialLSF(150:250, 150:250)=-c0;
+        %initialLSF(100:200, 170:280)=-c0;
+    % randomize regions for more than 3 regions
+    else
+        % randomize regions
+        starty = randi(height);
+        endy = randi(height);
+        startx = randi(width);
+        endx = randi(width);
+        % swap the values if they don't make sense
+        if endx < startx
+            temp = endx;
+            endx = startx;
+            startx = temp;
+        end
+        if endy < starty
+            temp = endy;
+            endy = starty;
+            starty = temp;
+        end
+    end
+    initialLSF(starty:endy,startx:endx)=-c0;
+    phi=initialLSF;
+
+    % start level set evolution
+    for n=1:iter_outer
+        phi = drlse_edge(phi, g, lambda, mu, alfa, epsilon, timestep, iter_inner, potentialFunction);
+        if mod(n,2)==0
+            %figure(2);
+            %imagesc(Img,[0, 255]); axis off; axis equal; colormap(gray); hold on;  contour(phi, [0,0], 'r');
+        end
+    end
+
+    % update final phi
+    for x = startx:endx
+        for y = starty:endy
+            if phi(y,x) < 0
+                finalPhi(y,x) = finalPhi(y,x) + 1;
+            end
+        end
+    end
+end
+%% final processing
+% refine the zero level contour by further level set evolution with alfa=0
+alfa=0;
+iter_refine = 10;
+phi = drlse_edge(phi, g, lambda, mu, alfa, epsilon, timestep, iter_inner, potentialFunction);
+finalLSF=finalPhi;
+
+%% more figures
+% color finalPhi based on hot colormap
+figure(4);
+imagesc(finalPhi,[0,numregions]); axis off; axis equal;
+colormap(hot);
+%hold on;  contour(finalPhi, [0,0], 'r','LineWidth',2);
+%contourcmap(white);
+str='Image Segmentation';
+title(str);
+pause(5);
+
+%figure(2);
+%imagesc(Img,[0, 255]); axis off; axis equal; colormap(gray); 
+%colormap([0 0 0]);
+%hold on;  contour(finalPhi, [0 -2], 'r', 'LineWidth',2);
+%hold on;  contourf(finalPhi, [-1 -2],'r','LineWidth',2);
+%colormap(hot);
+%hold on; contourf(finalPhi, numregions);
+%str=['Final zero level contour, ', num2str(iter_outer*iter_inner+iter_refine), ' iterations'];
+%title(str);
+
+pause(1);
+figure;
+mesh(-finalLSF); % for a better view, the LSF is displayed upside down
+hold on;  contour(finalPhi, [0,0], 'r','LineWidth',2);
+str=['Final level set function, ', num2str(iter_outer*iter_inner+iter_refine), ' iterations'];
+title(str);
+axis on;
